@@ -8,6 +8,12 @@
       name="description"
       content="My portfolio as a final-semester Bachelor of Information Management student interested in practical technology, security, and business systems."
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -15,6 +21,7 @@
       <a href="#interests">Interests</a>
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
+      <a href="#checklist">Project</a>
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -28,7 +35,6 @@
           />
         </div>
         <div class="heroText">
-          <p class="eyebrow">Student portfolio</p>
           <h1>Sumit Joshi</h1>
           <p class="summary">
             I am a final-semester Bachelor of Information Management student
@@ -86,32 +92,39 @@
         </div>
         <div class="skillGroups">
           <article>
-            <h3>Programming</h3>
+            <h3>Programming and tools</h3>
             <div class="chips">
               <span>Python basics</span>
               <span>JavaScript</span>
               <span>C programming</span>
               <span>React</span>
               <span>Node.js</span>
-            </div>
-          </article>
-          <article>
-            <h3>Tools and data</h3>
-            <div class="chips">
-              <span>Git and GitHub</span>
               <span>PostgreSQL</span>
-              <span>REST API basics</span>
+              <span>Git and GitHub</span>
+              <span>TypeScript exposure</span>
               <span>Vite</span>
             </div>
           </article>
           <article>
-            <h3>Security basics</h3>
+            <h3>Networking and IT</h3>
             <div class="chips">
-              <span>Network security concepts</span>
+              <span>TCP/IP basics</span>
+              <span>IP addressing</span>
+              <span>Subnetting basics</span>
+              <span>LAN/WAN concepts</span>
+              <span>Basic troubleshooting</span>
+            </div>
+          </article>
+          <article>
+            <h3>Security and compliance</h3>
+            <div class="chips">
               <span>Access control</span>
+              <span>2FA/MFA</span>
+              <span>Security monitoring basics</span>
+              <span>Incident response lifecycle</span>
               <span>ISO/IEC 27001 basics</span>
+              <span>NIST RMF basics</span>
               <span>Security documentation</span>
-              <span>Cloud security assessment</span>
             </div>
           </article>
         </div>
@@ -143,6 +156,7 @@
               <li>I helped build BikriBagaicha, a React Native app connecting farmers directly with vendors.</li>
               <li>I worked with a team under a tight deadline and learned how much communication matters during a fast build.</li>
             </ul>
+            <a class="inlineLink" href="https://github.com/sumijoshi60/Bikri-Bagaicha">GitHub</a>
           </article>
         </div>
 
@@ -155,7 +169,7 @@
               assessments, with audit checklists, scoring, maturity ratings,
               evidence uploads, and remediation tracking.
             </p>
-            <a href="https://github.com/sumijoshi60/isms_audit_toolkit.git">GitHub</a>
+            <a href="https://github.com/sumijoshi60/isms_audit_toolkit">GitHub</a>
           </article>
           <article class="projectCard">
             <p class="meta">Cloud assessment app</p>
@@ -177,6 +191,48 @@
             </p>
             <a href="https://github.com/sumijoshi60/GiveHeartedly_Project">GitHub</a>
           </article>
+        </div>
+      </section>
+
+      <section class="section" id="checklist">
+        <div class="sectionIntro">
+          <p class="eyebrow">Project</p>
+          <h2>SafeSignal</h2>
+        </div>
+        <div class="helper">
+          <div class="helperCopy">
+            <h3>A simple digital safety checker</h3>
+            <p>
+              SafeSignal is a small browser-based tool that reads a short
+              digital habit or situation and returns basic safety suggestions.
+              It is meant for everyday examples like passwords, suspicious
+              links, downloads, public Wi-Fi, and file sharing.
+            </p>
+            <p>
+              This version uses simple keyword rules, so it is not a full AI
+              product yet. I built it as a practice project to understand how a
+              small tool can turn messy user input into clearer, useful output.
+            </p>
+            <div class="toolNotes" aria-label="SafeSignal project notes">
+              <span>Digital safety basics</span>
+              <span>Rule-based logic</span>
+              <span>Plain-language suggestions</span>
+            </div>
+          </div>
+          <div class="helperTool">
+            <label for="securitySituation">Describe a digital habit or situation</label>
+            <textarea
+              id="securitySituation"
+              placeholder="Example: Someone downloads torrents on their laptop, uses the same password everywhere, and connects to public Wi-Fi often."
+            ></textarea>
+            <div class="helperActions">
+              <button id="securityGenerate" type="button">Generate suggestions</button>
+              <button id="securityExample" class="quietButton" type="button">Use example</button>
+            </div>
+            <div class="helperOutput" id="securityOutput">
+              <p>Your suggestions will appear here.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -231,5 +287,91 @@
         </div>
       </section>
     </main>
+    <script>
+      (function () {
+        const input = document.getElementById("securitySituation");
+        const output = document.getElementById("securityOutput");
+        const generate = document.getElementById("securityGenerate");
+        const example = document.getElementById("securityExample");
+        if (!input || !output || !generate || !example) return;
+
+        const rules = [
+          ["password", "Unsafe password habits", "Use strong, different passwords and avoid saving them in unsafe places.", "High"],
+          ["same password", "Reusing one password can make many accounts unsafe", "Use different passwords for important accounts and consider a password manager.", "High"],
+          ["two-factor", "No extra login protection", "Enable two-factor authentication for important accounts.", "High"],
+          ["mfa", "No extra login protection", "Enable two-factor authentication for important accounts.", "High"],
+          ["shared laptop", "Shared devices can make accountability harder", "Create separate user accounts instead of sharing one login.", "Medium"],
+          ["public wi-fi", "Public Wi-Fi can expose personal browsing or account activity", "Avoid logging into sensitive accounts on public Wi-Fi, or use a trusted VPN.", "Medium"],
+          ["public wifi", "Public Wi-Fi can expose personal browsing or account activity", "Avoid logging into sensitive accounts on public Wi-Fi, or use a trusted VPN.", "Medium"],
+          ["otp", "OTP codes can be misused if shared", "Never share OTP or verification codes with anyone.", "High"],
+          ["verification code", "Verification codes can be misused if shared", "Never share OTP or verification codes with anyone.", "High"],
+          ["google drive", "Files may be open to too many people", "Review file permissions and share files only with people who need access.", "Medium"],
+          ["files", "Files may be open to too many people", "Review file permissions and share files only with people who need access.", "Medium"],
+          ["backup", "Important data may be lost", "Create a simple backup process and test that files can be restored.", "Medium"],
+          ["admin", "Too many people may have powerful access", "Limit admin access and review who has administrator permissions.", "High"],
+          ["torrent", "Torrent downloads can bring malware or unsafe files", "Avoid downloading unknown torrent files on personal devices.", "High"],
+          ["download", "Unknown downloads can create security risks", "Download software only from trusted sources and scan files before opening them.", "Medium"],
+          ["malware", "The device may be exposed to harmful software", "Run an antivirus scan and remove suspicious files or apps.", "High"],
+          ["virus", "The device may be exposed to harmful software", "Run an antivirus scan and remove suspicious files or apps.", "High"],
+          ["antivirus", "Device protection may need attention", "Keep antivirus or built-in device protection updated.", "Medium"],
+          ["laptop", "Personal devices need basic protection", "Keep the laptop updated, use a password, and avoid unsafe downloads.", "Medium"],
+          ["phone", "Phones also need basic account and app protection", "Keep the phone updated and avoid installing apps from unknown sources.", "Medium"],
+          ["phishing", "Suspicious messages can steal account details", "Do not click unknown links; check the sender and website carefully.", "High"],
+          ["unknown link", "Suspicious links can steal account details", "Do not click unknown links; check the sender and website carefully.", "High"],
+          ["link", "Links from unknown people can be unsafe", "Do not open links from strangers without checking where they lead.", "High"],
+          ["stranger", "Messages from strangers may be scams or phishing attempts", "Be careful with messages from unknown people, especially if they include links.", "High"],
+          ["click", "Clicking without checking can lead to unsafe websites", "Pause before clicking and check the sender, spelling, and website address.", "Medium"],
+          ["scam", "Scam messages can trick people into sharing personal details", "Do not share passwords, OTP codes, or personal information through suspicious messages.", "High"],
+          ["message", "Unexpected messages can contain unsafe links", "Check who sent the message before opening links or attachments.", "Medium"]
+        ];
+
+        function run() {
+          const text = input.value.trim().toLowerCase();
+          if (!text) {
+            output.innerHTML = "<p>Please describe a situation first.</p>";
+            return;
+          }
+
+          const mentionsPassword = text.includes("password");
+          const asksAboutMemory =
+            text.includes("forget") ||
+            text.includes("forgot") ||
+            text.includes("remember") ||
+            text.includes("strong password");
+
+          if (mentionsPassword && asksAboutMemory) {
+            output.innerHTML =
+              "<h3>Risks noticed</h3><ul>" +
+              "<li>Passwords can become weak if they are made only to be easy to remember.</li>" +
+              "<li>Writing passwords in notes, chats, or browsers without protection can expose accounts.</li>" +
+              "</ul>" +
+              "<h3>Safer habits to try</h3><ul>" +
+              "<li><strong>High:</strong> Use a password manager so each account can have a strong, different password without needing to memorize all of them.</li>" +
+              "<li><strong>High:</strong> Memorize one strong master password and do not reuse it anywhere else.</li>" +
+              "<li><strong>Medium:</strong> Turn on two-factor authentication for important accounts, especially email, banking, and social media.</li>" +
+              "</ul>";
+            return;
+          }
+
+          const matches = rules.filter((rule) => text.includes(rule[0]));
+          if (matches.length === 0) {
+            output.innerHTML = "<p>I did not find a matching rule yet. I would improve this by adding more digital habit examples and checks.</p>";
+            return;
+          }
+
+          const risks = matches.map((rule) => "<li>" + rule[1] + "</li>").join("");
+          const actions = matches.map((rule) => "<li><strong>" + rule[3] + ":</strong> " + rule[2] + "</li>").join("");
+          output.innerHTML =
+            "<h3>Risks noticed</h3><ul>" + risks + "</ul>" +
+            "<h3>Safer habits to try</h3><ul>" + actions + "</ul>";
+        }
+
+        generate.addEventListener("click", run);
+        example.addEventListener("click", function () {
+          input.value = "Someone downloads torrents on their laptop, uses the same password everywhere, and connects to public Wi-Fi often.";
+          run();
+        });
+      })();
+    </script>
   </body>
 </html>
